@@ -57,13 +57,6 @@ class Settings:
             logger.debug(f'Locations info -> {self.locations_data}')
         logger.info('Finished loading locations data!')
 
-    def __set_lang_settings(self, settings_data: SettingsSchemas) -> None:
-        logger.info('Starting set language settings...')
-        lang_settings = settings_data.settings.language
-        self.language = lang_settings
-        logger.debug(f'The installation of the language settings is completed -> {self.language}')
-        logger.info('The installation of the language settings is completed!')
-
     def __set_presence_settings(self, settings_data: SettingsSchemas) -> None:
         logger.info('Starting set presence settings...')
         presence_settings = settings_data.settings.presence
@@ -79,10 +72,9 @@ class Settings:
         application_settings = settings_data.settings.core
         game_log_path_settings = application_settings.log_folder_path
         self.game_log_folder_path = game_log_path_settings
-        self.deque_search = application_settings.deque_search
-        self.deque_max_depth = application_settings.deque_max_depth
         self.profiler = application_settings.profiler
         self.debug = application_settings.debug
+        self.language = application_settings.language
         logger.debug(f'The installation of the application settings is completed -> {application_settings.__dict__}')
         logger.info('The installation of the application settings is completed!')
 
@@ -139,6 +131,9 @@ class Settings:
                 format="{time:DD-MM-YYYY at HH:mm:ss} | {level} | {message}",
                 level=self.log_level,
                 diagnose=self.loguru_diagnostic,
+                retention='2 days',
+                rotation='200 MB',
+                enqueue=True,
             )
 
     @logger.catch
@@ -163,7 +158,6 @@ class Settings:
         validated_settings_data = self.__validate_settings_levels()
         self.__set_application_settings(settings_data=validated_settings_data)
         self.__set_presence_settings(settings_data=validated_settings_data)
-        self.__set_lang_settings(settings_data=validated_settings_data)
         self.__build_level_range()
         self.__set_locations_data()
         logger.info('Finished installing settings.')

@@ -57,4 +57,5 @@ class MainWidget(QWidget):
             logger.debug('saving profiler dump')
         logger.info('close application')
         self.worker.stop_task()
+        self.worker.terminate()
         self.app.exit()

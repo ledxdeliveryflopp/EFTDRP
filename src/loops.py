@@ -26,7 +26,14 @@ def start_main_loop() -> None:
                 try:
                     presence_service.set_presence()
                     time.sleep(settings.refresh_timer)
-                except (BrokenPipeError, DiscordError, DiscordNotFound, PipeClosed, InvalidPipe, AssertionError) as exc:
+                except (
+                        BrokenPipeError,
+                        DiscordError,
+                        DiscordNotFound,
+                        PipeClosed,
+                        InvalidPipe,
+                        AssertionError,
+                ) as exc:
                     logger.error(f'Error while set presence -> {exc}')
                     logger.info(f'Trying to disconnect from Discord')
                     presence_service.disconnect_from_discord()
@@ -45,7 +52,14 @@ def start_main_loop() -> None:
                 try:
                     presence_service.set_presence()
                     time.sleep(settings.refresh_timer)
-                except (BrokenPipeError, DiscordError, DiscordNotFound, PipeClosed, InvalidPipe, AssertionError) as exc:
+                except (
+                        BrokenPipeError,
+                        DiscordError,
+                        DiscordNotFound,
+                        PipeClosed,
+                        InvalidPipe,
+                        AssertionError,
+                ) as exc:
                     logger.error(f'Error while set presence -> {exc}')
                     logger.info(f'Trying to disconnect from Discord')
                     presence_service.disconnect_from_discord()
